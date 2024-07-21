@@ -1,0 +1,32 @@
+doctype html
+html.h-100
+  head
+    title Teskkis
+    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+
+  body.d-flex.flex-column.h-100
+    header
+      nav.navbar.navbar-expand-md.navbar-light.fixed-top.bg-light
+        .container-fluid
+          = image_tag "https://www.tekkis.com.my/img/tekkis-logo.6459ff03.webp", size: "50x50", class: "navbar-brand"
+            span.ms-2 Tekkis Payment
+          button.navbar-toggler[type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"]
+            span.navbar-toggler-icon
+          #navbarCollapse.collapse.navbar-collapse
+            ul.navbar-nav.me-auto.mb-2.mb-md-0
+              li.nav-item
+                a.nav-link.active[aria-current="page" href="/"]
+                  | Main
+
+    .container-xl.my-md-4.bd-layout
+      main.flex-shrink-0.pt-5
+        .bd-main.order-1
+          = yield
+    footer.footer.mt-auto.py-2.bg-body-tertiary
+      .container
+        span.text-muted
+          | Peasy.AI x Tekkis

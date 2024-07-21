@@ -1,0 +1,25 @@
+div id="#{dom_id transaction}"
+  p
+    strong Request payload:
+    =< transaction.request_payload
+  p
+    strong Respond payload:
+    =< transaction.respond_payload
+  p
+    strong Webhook respond:
+    =< transaction.webhook_respond
+  p
+    strong Status:
+    =< transaction.status
+  p
+    strong Payment link:
+    =< transaction.payment_link
+  p
+    strong Payment invoice no:
+    =< transaction.payment_invoice_no
+  p
+    strong Payment unique key:
+    =< transaction.payment_unique_key
+  p
+    strong Sale cleared at:
+    =< transaction.sale_cleared_at
