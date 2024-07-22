@@ -1,25 +1,36 @@
-div id="#{dom_id transaction}"
-  p
-    strong Request payload:
-    =< transaction.request_payload
-  p
-    strong Respond payload:
-    =< transaction.respond_payload
-  p
-    strong Webhook respond:
-    =< transaction.webhook_respond
-  p
-    strong Status:
-    =< transaction.status
-  p
-    strong Payment link:
-    =< transaction.payment_link
-  p
-    strong Payment invoice no:
-    =< transaction.payment_invoice_no
-  p
-    strong Payment unique key:
-    =< transaction.payment_unique_key
-  p
-    strong Sale cleared at:
-    =< transaction.sale_cleared_at
+
+.card id="#{dom_id transaction}"
+  .card-header
+    .d-flex.justify-content-between.mt-4
+      .card-title
+        = transaction.payment_uuid
+      = link_to "Get Payment details", payment_path(transaction.payment_unique_key), class: "btn btn-warning", data: { turbo_frame: "transaction-details" }
+  .card-body
+    = turbo_frame_tag "transaction-details" do
+      strong Payment invoice no:
+      =< transaction.payment_invoice_no
+      br/
+      strong Payment unique key:
+      =< transaction.payment_unique_key
+      br/
+      strong Status:
+      =< transaction.payment_status
+      br/
+      strong Payment link:
+      =< transaction.payment_link
+      br/
+      strong Sale cleared at:
+      =< transaction.payment_cleared_at
+      br/
+
+      strong Request payload:
+      code
+        pre = JSON.pretty_generate(transaction.request_payload)
+
+      strong Respond payload:
+      code
+        pre = JSON.pretty_generate(transaction.respond_payload)
+
+      strong Webhook respond:
+      code
+        pre = JSON.pretty_generate(transaction.webhook_respond)

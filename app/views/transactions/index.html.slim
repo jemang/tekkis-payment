@@ -2,10 +2,34 @@ p style="color: green" = notice
 
 h1 Transactions
 
-#transactions
-  - @transactions.each do |transaction|
-    == render transaction
-    p
-      = link_to "Show this transaction", transaction
+.d-flex.justify-content-end
+  = link_to "New Payment", new_payment_path, class: "btn btn-primary"
 
-= link_to "New transaction", new_transaction_path
+.row.row-cards.mt-3
+  .col-md-12
+    .card
+      .table-responsive
+        table.table.table-vcenter.card-table
+          thead
+            tr
+              th.text-left
+                | Transaction ID
+              th.text-left
+                | Payment Invoice No
+              th.text-left
+                | Payment Link
+              th status
+              th url
+          tbody
+            - @transactions.each do |transaction|
+              tr
+                td.text-left
+                  = transaction.payment_uuid
+                td.text-left
+                  = transaction.payment_invoice_no
+                td.text-left
+                  = link_to "Make Payment Now", transaction.payment_link, target: "_blank"
+                td.text-left
+                  = transaction.payment_status
+                td.text-right
+                  = link_to "Show", transaction
