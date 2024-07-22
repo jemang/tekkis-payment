@@ -1,0 +1,7 @@
+## payment env"
+
+PAYMENT_MERCHANT_KEY: ""
+PAYMENT_SECRET: ""
+TEKKIS_BASE_URL: "https://api-staging.tpay.com.my"
+PAYMENT_REDIRECT_URL: "http://localhost:3000/payments/callback"
+PAYMENT_CALLBACK_URL: "http://localhost:3000/payments/webhook"
