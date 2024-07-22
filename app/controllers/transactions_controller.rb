@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController
   respond_to :html
 
   def index
-    @transactions = Transaction.all
+    @transactions = Transaction.order(created_at: :desc)
     respond_with(@transactions)
   end
 

@@ -1,1 +1,8 @@
-h4 masuk callback
+
+.d-flex.justify-content-center.align-items-center.mt-4
+  .spinner-border.text-primary(role="status")
+    span.visually-hidden Processing...
+  h2.ms-4 Payment being processed
+
+.d-flex.justify-content-center.align-items-center.mt-3
+  = link_to "Back to Home", root_path, class: "btn btn-primary"

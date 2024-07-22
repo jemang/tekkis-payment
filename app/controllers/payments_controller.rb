@@ -28,6 +28,15 @@ class PaymentsController < ApplicationController
   def webhook
     Rails.logger.info "masuk webhook"
     Rails.logger.debug params
+    if params["payload"].present?
+      payload = Payment.payload_decode_base64(params["payload"])
+      transaction = Transaction.find_by(payment_unique_key: payload["payment_unique_key"])
+      if transaction.present? && !transaction.completed?
+        cleared_date = payload["payment_status"] == "completed" ? Time.zone.now : nil
+        transaction.update(payment_status: payload["payment_status"], payment_cleared_at: cleared_date, webhook_respond: params["payload"])
+      end
+    end
+    render :nothing => true
   end
 
   private

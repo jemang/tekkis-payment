@@ -73,6 +73,11 @@ class Payment
     Base64.encode64(payload_params.to_json).strip
   end
 
+  def self.payload_decode_base64(data)
+    decode = Base64.decode64(data)
+    JSON.parse(decode)
+  end
+
   def payload_data
     {
       payload: payload_base64
