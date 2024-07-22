@@ -6,6 +6,7 @@ class CreateTransactions < ActiveRecord::Migration[7.1]
       t.json :webhook_respond
       t.integer :payment_status, default: 0
       t.string :payment_link
+      t.string :payment_uuid
       t.string :payment_invoice_no
       t.string :payment_unique_key
       t.datetime :payment_cleared_at

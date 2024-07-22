@@ -17,6 +17,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_084413) do
     t.json "webhook_respond"
     t.integer "payment_status", default: 0
     t.string "payment_link"
+    t.string "payment_uuid"
     t.string "payment_invoice_no"
     t.string "payment_unique_key"
     t.datetime "payment_cleared_at"

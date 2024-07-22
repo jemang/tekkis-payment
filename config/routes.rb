@@ -9,4 +9,10 @@ Rails.application.routes.draw do
   root "transactions#index"
 
   resources :transactions
+  resources :payments do
+    collection do
+      get :callback
+      get :webhook
+    end
+  end
 end
