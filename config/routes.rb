@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :payments do
     collection do
       get :callback
-      get :webhook
+      post :webhook
     end
   end
 end

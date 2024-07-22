@@ -1,4 +1,6 @@
 class PaymentsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def new
     @payment = Payment.new
   end
@@ -20,12 +22,12 @@ class PaymentsController < ApplicationController
 
   def callback
     Rails.logger.info "masuk callback"
-    Rails.logger.info params
+    Rails.logger.debug params
   end
 
   def webhook
     Rails.logger.info "masuk webhook"
-    Rails.logger.info params
+    Rails.logger.debug params
   end
 
   private
