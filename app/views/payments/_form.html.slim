@@ -1,0 +1,14 @@
+= simple_form_for @payment, url: payments_path, data: { turbo: false } do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+  .row
+    = f.input :paymentRefNo
+    = f.input :paymentName
+    = f.input :paymentEmail
+    = f.input :paymentAmount
+    = f.input :paymentDesc
+  .row
+    .col-12
+      .d-flex.justify-content-between.mt-4
+        = f.button :submit, class: 'btn btn-primary'
+        = link_to "Back to transactions", transactions_path, class: "btn btn-secondary"
