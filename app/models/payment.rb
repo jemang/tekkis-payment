@@ -3,6 +3,8 @@ class Payment
   include ActiveModel::Attributes
   include ActiveModel::Validations
 
+  attr_accessor :redirect_url, :respond
+
   attribute :paymentName, :string, default: -> { Faker::Name.name_with_middle }
   attribute :paymentEmail, :string, default: -> { Faker::Internet.email }
   attribute :paymentDesc, :string, default: -> { Faker::Food.description }
@@ -12,11 +14,12 @@ class Payment
   attribute :order_date, :datetime, default: -> { Time.zone.now }
 
   def create_order
-    @response = Pay.create(payload_data)
+    @response = TekkisPay.create(payload_data)
 
     # create transaction record ##
     transaction = Transaction.create(
-      request_payload: @response.request_payload
+      payment_uuid: paymentRefNo,
+      request_payload: payload_data
     )
 
     if @response._status == 200
@@ -29,15 +32,31 @@ class Payment
         payment_unique_key: paymentDetails.payment_unique_key,
         payment_invoice_no: paymentDetails.payment_ref_no
       )
-      @response
+
+      self.redirect_url = paymentDetails.payment_link
     end
   rescue Flexirest::HTTPBadRequestClientException, Flexirest::HTTPClientException => e
     errors.add(:base, e.msg)
     false
   end
 
-  def status_payment
+  def status_payment(payment_unique_key)
+    params = {
+      merchantKey: merchant_key,
+      signature: signature,
+      paymentUniqueKey: payment_unique_key
+    }
 
+    payload = Base64.strict_encode64(params.to_json)
+
+    @response = TekkisPay.status(
+      {
+        payload: payload
+      }
+    )
+    self.respond = @response.response
+  rescue Flexirest::HTTPBadRequestClientException, Flexirest::HTTPClientException => e
+    self.respond = e.body
   end
 
   def merchant_key

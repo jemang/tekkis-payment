@@ -1,4 +1,4 @@
-class Pay < Flexirest::Base
+class TekkisPay < Flexirest::Base
   verbose!
 
   request_body_type :json
