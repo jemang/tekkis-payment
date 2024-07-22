@@ -7,30 +7,30 @@
       = link_to "Get Payment details", payment_path(transaction.payment_unique_key), class: "btn btn-warning", data: { turbo_frame: "transaction-details" }
   .card-body
     = turbo_frame_tag "transaction-details" do
-      strong Payment invoice no:
+      strong.me-2 Payment invoice no:
       =< transaction.payment_invoice_no
       br/
-      strong Payment unique key:
+      strong.me-2 Payment unique key:
       =< transaction.payment_unique_key
       br/
-      strong Status:
-      =< transaction.payment_status
+      strong.me-2 Status:
+      = badge_tag(transaction.payment_status)
       br/
-      strong Payment link:
+      strong.me-2 Payment link:
       =< transaction.payment_link
       br/
-      strong Sale cleared at:
+      strong.me-2 Sale cleared at:
       =< transaction.payment_cleared_at
       br/
 
-      strong Request payload:
+      strong.me-2 Request payload:
       code
         pre = JSON.pretty_generate(transaction.request_payload)
 
-      strong Respond payload:
+      strong.me-2 Respond payload:
       code
         pre = JSON.pretty_generate(transaction.respond_payload)
 
-      strong Webhook respond:
+      strong.me-2 Webhook respond:
       code
         pre = JSON.pretty_generate(transaction.webhook_respond)

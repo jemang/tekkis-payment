@@ -36,7 +36,7 @@ class Payment
       self.redirect_url = paymentDetails.payment_link
     end
   rescue Flexirest::HTTPBadRequestClientException, Flexirest::HTTPClientException => e
-    errors.add(:base, e.msg)
+    errors.add(:base, e.body)
     false
   end
 

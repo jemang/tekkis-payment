@@ -30,6 +30,6 @@ h1 Transactions
                 td.text-left
                   = link_to "Make Payment Now", transaction.payment_link, target: "_blank"
                 td.text-left
-                  = transaction.payment_status
+                  = badge_tag(transaction.payment_status)
                 td.text-right
                   = link_to "Show", transaction
